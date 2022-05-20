@@ -38,4 +38,9 @@ class BowlingGameShould {
     void throws_exception_when_hits_max_of_pins() {
         assertThrows(RuntimeException.class, () -> bowlingGame.roll(11));
     }
+
+    @Test
+    void throws_exception_when_hits_negative_pins() {
+        assertThrows(RuntimeException.class, () -> bowlingGame.roll(-1));
+    }
 }
