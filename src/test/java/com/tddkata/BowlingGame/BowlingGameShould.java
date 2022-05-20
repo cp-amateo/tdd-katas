@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BowlingGameShould {
 
@@ -31,5 +32,10 @@ class BowlingGameShould {
         }
 
         assertThat(bowlingGame.score()).isEqualTo(1);
+    }
+
+    @Test
+    void throws_exception_when_hits_max_of_pins() {
+        assertThrows(RuntimeException.class, () -> bowlingGame.roll(11));
     }
 }
