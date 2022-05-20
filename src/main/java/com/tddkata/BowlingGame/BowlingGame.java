@@ -6,7 +6,7 @@ public class BowlingGame {
     private int score;
 
     public void roll(int pins) {
-        if (pins > PINS_IN_GAME) {
+        if (pins > PINS_IN_GAME || pins < 0) {
             throw new RuntimeException();
         }
         score += pins;
