@@ -43,4 +43,16 @@ class BowlingGameShould {
     void throws_exception_when_hits_negative_pins() {
         assertThrows(RuntimeException.class, () -> bowlingGame.roll(-1));
     }
+
+    @Test
+    void calculate_bonus_when_spare() {
+        bowlingGame.roll(5);
+        bowlingGame.roll(5);
+        bowlingGame.roll(2);
+        for (int rollNumber = 0; rollNumber < 17; rollNumber++) {
+            bowlingGame.roll(0);
+        }
+
+        assertThat(bowlingGame.score()).isEqualTo(14);
+    }
 }
