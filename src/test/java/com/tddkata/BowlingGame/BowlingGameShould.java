@@ -17,9 +17,7 @@ class BowlingGameShould {
 
     @Test
     void return_zero_when_not_hit_any_pin() {
-        for (int rollNumber = 0; rollNumber < 20; rollNumber++) {
-            bowlingGame.roll(0);
-        }
+        rollWithoutHits(20);
 
         assertThat(bowlingGame.score()).isEqualTo(0);
     }
@@ -27,9 +25,7 @@ class BowlingGameShould {
     @Test
     void return_one_when_hit_one_pin() {
         bowlingGame.roll(1);
-        for (int rollNumber = 0; rollNumber < 19; rollNumber++) {
-            bowlingGame.roll(0);
-        }
+        rollWithoutHits(19);
 
         assertThat(bowlingGame.score()).isEqualTo(1);
     }
@@ -46,13 +42,31 @@ class BowlingGameShould {
 
     @Test
     void calculate_bonus_when_spare() {
-        bowlingGame.roll(5);
-        bowlingGame.roll(5);
-        bowlingGame.roll(2);
-        for (int rollNumber = 0; rollNumber < 17; rollNumber++) {
-            bowlingGame.roll(0);
-        }
+        rollHits(5, 5, 2);
+        rollWithoutHits(17);
 
         assertThat(bowlingGame.score()).isEqualTo(14);
     }
+
+    @Test
+    void calculate_bonus_when_strike() {
+        rollHits(5, 5, 2);
+        rollWithoutHits(17);
+
+        assertThat(bowlingGame.score()).isEqualTo(14);
+    }
+
+    private void rollHits(int... hits) {
+        for (int hit : hits) {
+            bowlingGame.roll(hit);
+        }
+    }
+
+    private void rollWithoutHits(int numberOfRolls) {
+        for (int rollNumber = 0; rollNumber < numberOfRolls; rollNumber++) {
+            bowlingGame.roll(0);
+        }
+    }
+
+
 }
