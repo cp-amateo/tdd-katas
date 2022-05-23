@@ -13,11 +13,15 @@ public class BowlingGame {
     @RequiredArgsConstructor
     @Getter
     class Frame {
-        private final Integer roll1;
-        private final Integer roll2;
+        private final int roll1;
+        private final int roll2;
 
         public boolean isSpare() {
-            return roll1 + roll2 == 10;
+            return roll1 + roll2 == 10 && roll2 != 0;
+        }
+
+        public boolean isStrike() {
+            return roll1 == 10 ;
         }
 
         public int baseScore() {
@@ -42,9 +46,15 @@ public class BowlingGame {
 
         int bonus = 0;
         for (int frameNumber = 0; frameNumber < frames.size() -1; frameNumber++) {
-            if (frames.get(frameNumber).isSpare()) {
+            final Frame frame = frames.get(frameNumber);
+            if ( frame.isSpare()) {
                 bonus += frames.get(frameNumber + 1).getRoll1();
             }
+            if (frame.isStrike()) {
+                bonus += frames.get(frameNumber + 1).getRoll1();
+                bonus += frames.get(frameNumber + 1).getRoll2();
+            }
+
         }
 
         return baseScore + bonus;
@@ -52,8 +62,13 @@ public class BowlingGame {
 
     private List<Frame> buildFrames() {
         List<Frame> frames = new ArrayList<>();
-        for (int rollNumber = 0; rollNumber < rolls.size(); rollNumber += 2) {
-            frames.add(new Frame(rolls.get(rollNumber), rolls.get(rollNumber + 1)));
+        for (int rollNumber = 0; rollNumber < rolls.size(); rollNumber ++) {
+            if (rolls.get(rollNumber) == 10) {
+                frames.add(new Frame(10, 0));
+            } else {
+                frames.add(new Frame(rolls.get(rollNumber), rolls.get(rollNumber + 1)));
+                rollNumber ++;
+            }
         }
         return frames;
     }
