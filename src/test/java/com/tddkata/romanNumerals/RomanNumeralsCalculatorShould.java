@@ -28,6 +28,7 @@ class RomanNumeralsCalculatorShould {
                 Arguments.of(2, "II"),
                 Arguments.of(3, "III"),
                 Arguments.of(4, "IV"),
+                Arguments.of(5, "V"),
                 Arguments.of(0, "")
         );
     }
