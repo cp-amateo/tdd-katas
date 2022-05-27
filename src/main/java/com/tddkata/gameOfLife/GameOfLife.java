@@ -16,17 +16,9 @@ public class GameOfLife {
 
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board[x].length; y++) {
-                int nAlive = 0;
-                if (isCellAlive(board, x - 1, y - 1)) nAlive++;
-                if (isCellAlive(board, x - 1, y)) nAlive++;
-                if (isCellAlive(board, x - 1, y + 1)) nAlive++;
-                if (isCellAlive(board, x + 1, y - 1)) nAlive++;
-                if (isCellAlive(board, x + 1, y)) nAlive++;
-                if (isCellAlive(board, x + 1, y + 1)) nAlive++;
-                if (isCellAlive(board, x, y - 1)) nAlive++;
-                if (isCellAlive(board, x, y + 1)) nAlive++;
-
                 nextBoard[x][y] = board[x][y];
+
+                int nAlive = getNumberOfAliveCells(x, y);
 
                 if (board[x][y] && nAlive <= 2) {
                     nextBoard[x][y] = false;
@@ -44,18 +36,32 @@ public class GameOfLife {
         this.board = nextBoard;
     }
 
-    private boolean isCellAlive(boolean[][] board, int x, int y) {
-        if (x < 0 || y < 0) {
-            return false;
-        }
-        if (x >= board.length) {
-            return false;
-        }
-        if (y >= board[x].length) {
-            return false;
+    private int getNumberOfAliveCells(int xCell, int yCell) {
+        int nAlive = 0;
+
+        for (int x = xCell - 1; x <= xCell + 1; x++) {
+            for (int y = yCell - 1; y <= yCell + 1; y++) {
+                if (xCell != x || yCell != y) {
+                    nAlive += cellAlive(x, y);
+                }
+            }
         }
 
-        return board[x][y];
+        return nAlive;
+    }
+
+    private int cellAlive(int x, int y) {
+        if (x < 0 || y < 0) {
+            return 0;
+        }
+        if (x >= board.length) {
+            return 0;
+        }
+        if (y >= board[x].length) {
+            return 0;
+        }
+
+        return board[x][y] ? 1 : 0;
     }
 
 }
