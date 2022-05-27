@@ -8,9 +8,9 @@ public class RomanNumeralsCalculator {
 
     private final TreeMap<Integer, String> symbols = initializeSymbols();
 
-    private  TreeMap<Integer, String> initializeSymbols() {
+    private TreeMap<Integer, String> initializeSymbols() {
         final TreeMap<Integer, String> symbols = new TreeMap<>();
-        symbols.putAll( Map.of(
+        symbols.putAll(Map.of(
                 0, "",
                 1, "I",
                 4, "IV",
@@ -18,7 +18,6 @@ public class RomanNumeralsCalculator {
         ));
         return symbols;
     }
-
 
     public String convertNumber(int number) {
         final int key = getKey(number);

@@ -29,6 +29,10 @@ class RomanNumeralsCalculatorShould {
                 Arguments.of(3, "III"),
                 Arguments.of(4, "IV"),
                 Arguments.of(5, "V"),
+                Arguments.of(6, "VI"),
+                Arguments.of(7, "VII"),
+                Arguments.of(8, "VIII"),
+                Arguments.of(9, "IX"),
                 Arguments.of(0, "")
         );
     }
