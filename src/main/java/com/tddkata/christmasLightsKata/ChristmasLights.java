@@ -15,7 +15,14 @@ public class ChristmasLights {
         changeLight(LIGHT_STATUS.OFF, corner1, corner2);
     }
 
-    public void toggle(Coordinate of, Coordinate of1) {
+    public void toggle(final Coordinate corner1, final Coordinate corner2) {
+        for (int x = corner1.getX(); x <= corner2.getX(); x++) {
+            for (int y = corner1.getY(); y <= corner2.getY(); y++) {
+                grid[x][y] = grid[x][y] == 1
+                        ? 0
+                        : 1;
+            }
+        }
     }
 
     public int getNumberOfLightsOn() {
