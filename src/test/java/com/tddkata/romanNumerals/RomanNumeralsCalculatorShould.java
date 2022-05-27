@@ -33,6 +33,7 @@ class RomanNumeralsCalculatorShould {
                 Arguments.of(7, "VII"),
                 Arguments.of(8, "VIII"),
                 Arguments.of(9, "IX"),
+                Arguments.of(10, "X"),
                 Arguments.of(0, "")
         );
     }
