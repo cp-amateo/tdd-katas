@@ -3,8 +3,8 @@ package com.tddkata.christmasLightsKata;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class ChristmasLightsShould {
 
@@ -17,9 +17,8 @@ class ChristmasLightsShould {
 
     @Test
     void turn_off_all_lights() {
+        christmasLights.turnOff(Coordinate.of(0, 0), Coordinate.of(999, 999));
 
-        christmasLights.turnOff(Coordinate.of(0, 0), Coordinate.of(0.0));
-
-        assertThat(christmasLights.getLightsLit()).isEqualTo(0);
+        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
     }
 }
