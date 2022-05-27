@@ -1,7 +1,5 @@
 package com.tddkata.christmasLightsKata;
 
-import java.util.Arrays;
-
 import static com.tddkata.christmasLightsKata.LIGHT_ACTION.ON;
 
 public class ChristmasLights {
@@ -23,7 +21,7 @@ public class ChristmasLights {
         changeLight(LIGHT_ACTION.TOGGLE, corner1, corner2);
     }
 
-    public int getNumberOfLightsOn() {
+    public int getBrightness() {
         int nLightsOn = 0;
         for (int x = 0; x < ROWS; x++) {
             for (int y = 0; y < COLUMNS; y++) {
@@ -42,13 +40,13 @@ public class ChristmasLights {
         }
     }
 
-    private int calculateLightValueBy(LIGHT_ACTION lightAction, int value) {
+    private int calculateLightValueBy(final LIGHT_ACTION lightAction, final int value) {
         return switch (lightAction) {
-            case ON -> 1;
-            case OFF -> 0;
-            case TOGGLE -> value == 1
+            case ON -> value + 1;
+            case OFF -> value <= 1
                     ? 0
-                    : 1;
+                    : value - 1;
+            case TOGGLE -> value +2;
             default -> throw new IllegalStateException("Unexpected value: " + lightAction);
         };
     }

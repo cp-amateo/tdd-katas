@@ -19,21 +19,21 @@ class ChristmasLightsShould {
     void turn_off_all_lights() {
         christmasLights.turnOff(Coordinate.of(0, 0), Coordinate.of(999, 999));
 
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
+        assertThat(christmasLights.getBrightness()).isEqualTo(0);
     }
 
     @Test
     void turn_on_all_lights() {
         christmasLights.turnOn(Coordinate.of(0, 0), Coordinate.of(999, 999));
 
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(1000000);
+        assertThat(christmasLights.getBrightness()).isEqualTo(1000000);
     }
 
     @Test
     void return_2000_when_turn_on_first_two_rows() {
         christmasLights.turnOn(Coordinate.of(0, 0), Coordinate.of(1, 999));
 
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(2000);
+        assertThat(christmasLights.getBrightness()).isEqualTo(2000);
     }
 
     @Test
@@ -41,22 +41,14 @@ class ChristmasLightsShould {
         christmasLights.turnOn(Coordinate.of(0, 0), Coordinate.of(999, 999));
         christmasLights.turnOff(Coordinate.of(0, 0), Coordinate.of(999, 999));
 
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
+        assertThat(christmasLights.getBrightness()).isEqualTo(0);
     }
 
     @Test
-    void toggle_on_all_lights() {
+    void toggle_all_lights() {
         christmasLights.toggle(Coordinate.of(0, 0), Coordinate.of(999, 999));
 
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(1000000);
-    }
-
-    @Test
-    void toggle_of_all_lights() {
-        christmasLights.turnOn(Coordinate.of(0, 0), Coordinate.of(999, 999));
-        christmasLights.toggle(Coordinate.of(0, 0), Coordinate.of(999, 999));
-
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
+        assertThat(christmasLights.getBrightness()).isEqualTo(2000000);
     }
 
     @Test
@@ -71,6 +63,6 @@ class ChristmasLightsShould {
         christmasLights.toggle(Coordinate.of(720,196), Coordinate.of(897,994));
         christmasLights.toggle(Coordinate.of(831,394), Coordinate.of(904,860));
 
-        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(230022);
+        assertThat(christmasLights.getBrightness()).isEqualTo(539560);
     }
 }
