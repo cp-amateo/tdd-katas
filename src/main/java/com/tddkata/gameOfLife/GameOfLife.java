@@ -34,6 +34,9 @@ public class GameOfLife {
                 if (!board[x][y] && nAlive == 3) {
                     nextBoard[x][y] = true;
                 }
+                if (board[x][y] && nAlive > 3) {
+                    nextBoard[x][y] = false;
+                }
 
             }
         }
