@@ -7,6 +7,11 @@ public class ChristmasLights {
     int[][] grid = new int[ROWS][COLUMNS];
 
     public void turnOff(final Coordinate corner1, final Coordinate corner2) {
+        for (int x = corner1.getX(); x <= corner2.getX(); x++) {
+            for (int y = corner1.getY(); y <= corner2.getY(); y++) {
+                grid[x][y] = 0;
+            }
+        }
     }
 
     public int getNumberOfLightsOn() {
