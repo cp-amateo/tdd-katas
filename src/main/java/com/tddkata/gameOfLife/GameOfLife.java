@@ -34,7 +34,6 @@ public class GameOfLife {
         }
 
         this.board = nextBoard;
-
     }
 
     private boolean isCellAlive(boolean[][] board, int x, int y) {

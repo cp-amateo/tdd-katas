@@ -40,4 +40,23 @@ class GameOfLifeShould {
         };
         assertThat(gameOfLife.getBoard()).isEqualTo(boardExpected);
     }
+
+    @Test
+    void become_alive_when_exactly_3_neighbours_alive() {
+        final boolean[][] board = new boolean[][]{
+                {true, true, false},
+                {false, false, false},
+                {false, false, true}
+        };
+
+        final GameOfLife gameOfLife = new GameOfLife(board);
+        gameOfLife.nextGen();
+
+        final boolean[][] boardExpected = new boolean[][]{
+                {false, false, false},
+                {false, true, false},
+                {false, false, false}
+        };
+        assertThat(gameOfLife.getBoard()).isEqualTo(boardExpected);
+    }
 }
