@@ -1,11 +1,18 @@
 package com.tddkata.gameOfLife;
 
-public class GameOfLife {
-    public GameOfLife(boolean[][] board) {
+import lombok.Getter;
 
+public class GameOfLife {
+
+    @Getter
+    private final boolean[][] board;
+
+    public GameOfLife(boolean[][] board) {
+        this.board = board;
     }
 
     public void nextGen() {
 
     }
+
 }
