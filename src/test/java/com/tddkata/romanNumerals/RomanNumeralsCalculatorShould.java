@@ -9,7 +9,6 @@ class RomanNumeralsCalculatorShould {
 
     @Test
     void return_I_when_convert_one() {
-
         final String result = new RomanNumeralsCalculator().convert(1);
         assertThat(result).isEqualTo("I");
     }
