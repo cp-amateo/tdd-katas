@@ -1,5 +1,7 @@
 package com.tddkata.christmasLightsKata;
 
+import static com.tddkata.christmasLightsKata.LIGHT_ACTION.ON;
+
 public class ChristmasLights {
 
     public static final int ROWS = 1000;
@@ -8,21 +10,15 @@ public class ChristmasLights {
     int[][] grid = new int[ROWS][COLUMNS];
 
     public void turnOn(final Coordinate corner1, final Coordinate corner2) {
-        changeLight(LIGHT_STATUS.ON, corner1, corner2);
+        changeLight(ON, corner1, corner2);
     }
 
     public void turnOff(final Coordinate corner1, final Coordinate corner2) {
-        changeLight(LIGHT_STATUS.OFF, corner1, corner2);
+        changeLight(LIGHT_ACTION.OFF, corner1, corner2);
     }
 
     public void toggle(final Coordinate corner1, final Coordinate corner2) {
-        for (int x = corner1.getX(); x <= corner2.getX(); x++) {
-            for (int y = corner1.getY(); y <= corner2.getY(); y++) {
-                grid[x][y] = grid[x][y] == 1
-                        ? 0
-                        : 1;
-            }
-        }
+        changeLight(LIGHT_ACTION.TOGGLE, corner1, corner2);
     }
 
     public int getNumberOfLightsOn() {
@@ -35,11 +31,22 @@ public class ChristmasLights {
         return nLightsOn;
     }
 
-    private void changeLight(LIGHT_STATUS lightStatus, Coordinate corner1, Coordinate corner2) {
+    private void changeLight(LIGHT_ACTION lightAction, Coordinate corner1, Coordinate corner2) {
         for (int x = corner1.getX(); x <= corner2.getX(); x++) {
             for (int y = corner1.getY(); y <= corner2.getY(); y++) {
-                grid[x][y] = lightStatus.getValue();
+                grid[x][y] = calculateLightValueBy(lightAction, grid[x][y]);
             }
         }
+    }
+
+    private int calculateLightValueBy(LIGHT_ACTION lightAction, int value) {
+        return switch (lightAction) {
+            case ON -> 1;
+            case OFF -> 0;
+            case TOGGLE -> value == 1
+                    ? 0
+                    : 1;
+            default -> throw new IllegalStateException("Unexpected value: " + lightAction);
+        };
     }
 }

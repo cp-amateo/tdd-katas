@@ -50,4 +50,12 @@ class ChristmasLightsShould {
 
         assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(1000000);
     }
+
+    @Test
+    void toggle_of_all_lights() {
+        christmasLights.turnOn(Coordinate.of(0, 0), Coordinate.of(999, 999));
+        christmasLights.toggle(Coordinate.of(0, 0), Coordinate.of(999, 999));
+
+        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
+    }
 }
