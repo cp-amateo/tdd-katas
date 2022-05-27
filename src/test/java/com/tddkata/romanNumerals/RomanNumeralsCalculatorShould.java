@@ -25,7 +25,9 @@ class RomanNumeralsCalculatorShould {
     private static Stream<Arguments> romanNumberEquivalences() {
         return Stream.of(
                 Arguments.of(0, ""),
-                Arguments.of(1, "I")
+                Arguments.of(1, "I"),
+                Arguments.of(1, "V"),
+                Arguments.of(1, "X")
         );
     }
 }
