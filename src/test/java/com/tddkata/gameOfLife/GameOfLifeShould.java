@@ -19,7 +19,7 @@ class GameOfLifeShould {
         final GameOfLife gameOfLife = new GameOfLife(board);
         gameOfLife.nextGen();
 
-        assertThat(gameOfLife.getBoard()).isEqualTo(board);
+        assertThat(gameOfLife.getBoard()[1][1]).isFalse();
     }
 
     @Test
@@ -33,12 +33,7 @@ class GameOfLifeShould {
         final GameOfLife gameOfLife = new GameOfLife(board);
         gameOfLife.nextGen();
 
-        final boolean[][] boardExpected = new boolean[][]{
-                {false, false, false},
-                {false, false, false},
-                {false, false, false}
-        };
-        assertThat(gameOfLife.getBoard()).isEqualTo(boardExpected);
+        assertThat(gameOfLife.getBoard()[1][1]).isFalse();
     }
 
     @Test
@@ -52,11 +47,20 @@ class GameOfLifeShould {
         final GameOfLife gameOfLife = new GameOfLife(board);
         gameOfLife.nextGen();
 
-        final boolean[][] boardExpected = new boolean[][]{
-                {false, false, false},
+        assertThat(gameOfLife.getBoard()[1][1]).isTrue();
+    }
+
+    @Test
+    void death_when_more_than_3_neighbours_alive() {
+        final boolean[][] board = new boolean[][]{
+                {true, true, false},
                 {false, true, false},
-                {false, false, false}
+                {true, false, true}
         };
-        assertThat(gameOfLife.getBoard()).isEqualTo(boardExpected);
+
+        final GameOfLife gameOfLife = new GameOfLife(board);
+        gameOfLife.nextGen();
+
+        assertThat(gameOfLife.getBoard()[1][1]).isFalse();
     }
 }
