@@ -18,27 +18,29 @@ public class GameOfLife {
             for (int y = 0; y < board[x].length; y++) {
                 nextBoard[x][y] = board[x][y];
 
-                int nAlive = getNumberOfAliveCells(x, y);
-
-                if (board[x][y] && nAlive < 2) {
+                final int nClosedCellsAlive = getNumberOfClosedAliveCells(x, y);
+                if (canDie(nClosedCellsAlive)) {
                     nextBoard[x][y] = false;
                 }
-                if (!board[x][y] && nAlive == 3) {
+                if (canResurrect(nClosedCellsAlive)) {
                     nextBoard[x][y] = true;
                 }
-                if (board[x][y] && nAlive > 3) {
-                    nextBoard[x][y] = false;
-                }
-
             }
         }
 
         this.board = nextBoard;
     }
 
-    private int getNumberOfAliveCells(int xCell, int yCell) {
-        int nAlive = 0;
+    private boolean canResurrect(int nClosedCellsAlive) {
+        return nClosedCellsAlive == 3;
+    }
 
+    private boolean canDie(int nClosedCellsAlive) {
+        return nClosedCellsAlive < 2 || nClosedCellsAlive > 3;
+    }
+
+    private int getNumberOfClosedAliveCells(int xCell, int yCell) {
+        int nAlive = 0;
         for (int x = xCell - 1; x <= xCell + 1; x++) {
             for (int y = yCell - 1; y <= yCell + 1; y++) {
                 if (xCell != x || yCell != y) {
@@ -46,7 +48,6 @@ public class GameOfLife {
                 }
             }
         }
-
         return nAlive;
     }
 

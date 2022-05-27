@@ -102,4 +102,29 @@ class GameOfLifeShould {
         assertThat(gameOfLife.getBoard()).isEqualTo(expectedBoard);
     }
 
+    @Test
+    void test_initial_line() {
+        final boolean[][] board = new boolean[][]{
+                {false, false, false, false, false, false},
+                {false, false, false, false, false, false},
+                {false, true, true, true, true, false},
+                {false, false, false, false, false, false},
+                {false, false, false, false, false, false},
+
+        };
+        final GameOfLife gameOfLife = new GameOfLife(board);
+        for (int i = 0; i < 10; i++) {
+            gameOfLife.nextGen();
+        }
+        final boolean[][] expectedBoard = new boolean[][]{
+                {false, false, false, false, false, false},
+                {false, false, true, true, false, false},
+                {false, true, false, false, true, false},
+                {false, false, true, true, false, false},
+                {false, false, false, false, false, false},
+        };
+
+        assertThat(gameOfLife.getBoard()).isEqualTo(expectedBoard);
+    }
+
 }
