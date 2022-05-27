@@ -21,4 +21,11 @@ class ChristmasLightsShould {
 
         assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
     }
+
+    @Test
+    void turn_on_all_lights() {
+        christmasLights.turnOn(Coordinate.of(0, 0), Coordinate.of(999, 999));
+
+        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
+    }
 }
