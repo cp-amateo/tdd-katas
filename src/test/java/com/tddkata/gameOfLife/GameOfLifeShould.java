@@ -77,4 +77,29 @@ class GameOfLifeShould {
 
         assertThat(gameOfLife.getBoard()[1][1]).isTrue();
     }
+
+    @Test
+    void test_initial_square() {
+        final boolean[][] board = new boolean[][]{
+                {false, false, false, false},
+                {false, true, true, false},
+                {false, true, true, false},
+                {false, false, false, false},
+        };
+
+        final GameOfLife gameOfLife = new GameOfLife(board);
+        for (int i = 0; i < 10; i++) {
+            gameOfLife.nextGen();
+        }
+
+        final boolean[][] expectedBoard = new boolean[][]{
+                {false, false, false, false},
+                {false, true, true, false},
+                {false, true, true, false},
+                {false, false, false, false},
+        };
+
+        assertThat(gameOfLife.getBoard()).isEqualTo(expectedBoard);
+    }
+
 }
