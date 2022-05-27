@@ -26,8 +26,12 @@ public class GameOfLife {
                 if (isCellAlive(board, x, y - 1)) nAlive++;
                 if (isCellAlive(board, x, y + 1)) nAlive++;
 
+
                 if (nAlive <= 2) {
                     nextBoard[x][y] = false;
+                }
+                if (!board[x][y] && nAlive == 3) {
+                    nextBoard[x][y] = true;
                 }
 
             }
