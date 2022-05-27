@@ -24,10 +24,10 @@ class RomanNumeralsCalculatorShould {
 
     private static Stream<Arguments> romanNumberEquivalences() {
         return Stream.of(
-                Arguments.of(0, ""),
                 Arguments.of(1, "I"),
-                Arguments.of(5, "V"),
-                Arguments.of(10, "X")
+//                Arguments.of(1, "II"),
+//                Arguments.of(1, "III"),
+                Arguments.of(0, "")
         );
     }
 }
