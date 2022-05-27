@@ -4,14 +4,15 @@ public class ChristmasLights {
 
     public static final int ROWS = 1000;
     public static final int COLUMNS = 1000;
+
     int[][] grid = new int[ROWS][COLUMNS];
 
+    public void turnOn(final Coordinate corner1, final Coordinate corner2) {
+        changeLight(LIGHT_STATUS.ON, corner1, corner2);
+    }
+
     public void turnOff(final Coordinate corner1, final Coordinate corner2) {
-        for (int x = corner1.getX(); x <= corner2.getX(); x++) {
-            for (int y = corner1.getY(); y <= corner2.getY(); y++) {
-                grid[x][y] = 0;
-            }
-        }
+        changeLight(LIGHT_STATUS.OFF, corner1, corner2);
     }
 
     public int getNumberOfLightsOn() {
@@ -24,11 +25,12 @@ public class ChristmasLights {
         return nLightsOn;
     }
 
-    public void turnOn(final Coordinate corner1, final Coordinate corner2) {
+    private void changeLight(LIGHT_STATUS lightStatus, Coordinate corner1, Coordinate corner2) {
         for (int x = corner1.getX(); x <= corner2.getX(); x++) {
             for (int y = corner1.getY(); y <= corner2.getY(); y++) {
-                grid[x][y] = 1;
+                grid[x][y] = lightStatus.getValue();
             }
         }
     }
+
 }
