@@ -1,28 +1,35 @@
 package com.tddkata.romanNumerals;
 
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class RomanNumeralsCalculator {
 
-    private static final Map<Integer, String> symbols = Map.of(
-            0, "",
-            1, "I",
-            4, "IV",
-            5, "V"
-    );
+    private final TreeMap<Integer, String> symbols = initializeSymbols();
+
+    private  TreeMap<Integer, String> initializeSymbols() {
+        final TreeMap<Integer, String> symbols = new TreeMap<>();
+        symbols.putAll( Map.of(
+                0, "",
+                1, "I",
+                4, "IV",
+                5, "V"
+        ));
+        return symbols;
+    }
 
 
     public String convertNumber(int number) {
-        if (number >= 5) {
-            return symbols.get(5) + convertNumber(number - 5);
+        final int key = getKey(number);
+        if (key == 0) {
+            return symbols.get(0);
         }
-        if (number >= 4) {
-            return symbols.get(4) + convertNumber(number - 4);
-        }
-        if (number >= 1) {
-            return symbols.get(1) + convertNumber(number - 1);
-        }
+        return symbols.get(key) + convertNumber(number - key);
+    }
 
-        return symbols.get(0);
+    private int getKey(int number) {
+
+        return symbols.floorKey(number);
     }
 }
