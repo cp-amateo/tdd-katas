@@ -20,7 +20,7 @@ public class GameOfLife {
 
                 int nAlive = getNumberOfAliveCells(x, y);
 
-                if (board[x][y] && nAlive <= 2) {
+                if (board[x][y] && nAlive < 2) {
                     nextBoard[x][y] = false;
                 }
                 if (!board[x][y] && nAlive == 3) {
