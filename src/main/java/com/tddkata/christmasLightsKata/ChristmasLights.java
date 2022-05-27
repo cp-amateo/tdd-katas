@@ -15,6 +15,9 @@ public class ChristmasLights {
         changeLight(LIGHT_STATUS.OFF, corner1, corner2);
     }
 
+    public void toggle(Coordinate of, Coordinate of1) {
+    }
+
     public int getNumberOfLightsOn() {
         int nLightsOn = 0;
         for (int x = 0; x < ROWS; x++) {
@@ -32,5 +35,4 @@ public class ChristmasLights {
             }
         }
     }
-
 }
