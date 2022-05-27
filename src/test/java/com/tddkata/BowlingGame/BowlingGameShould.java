@@ -48,22 +48,6 @@ class BowlingGameShould {
         assertThat(bowlingGame.score()).isEqualTo(14);
     }
 
-    @Test
-    void calculate_bonus_when_two_spares() {
-        rollHits(5, 5, 2, 8, 5);
-        rollWithoutHits(15);
-
-        assertThat(bowlingGame.score()).isEqualTo(32);
-    }
-
-    @Test
-    void calculate_bonus_when_strike() {
-        rollHits(10, 1, 1);
-        rollWithoutHits(16);
-
-        assertThat(bowlingGame.score()).isEqualTo(12 + 2);
-    }
-
     private void rollHits(int... hits) {
         for (int hit : hits) {
             bowlingGame.roll(hit);
