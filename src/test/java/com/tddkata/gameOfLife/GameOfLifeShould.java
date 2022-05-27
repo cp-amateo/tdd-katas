@@ -63,4 +63,18 @@ class GameOfLifeShould {
 
         assertThat(gameOfLife.getBoard()[1][1]).isFalse();
     }
+
+    @Test
+    void any_live_cell_with_2_or_3_alive_cells_will_be_survive() {
+        final boolean[][] board = new boolean[][]{
+                {true, true, false},
+                {false, true, false},
+                {false, false, false}
+        };
+
+        final GameOfLife gameOfLife = new GameOfLife(board);
+        gameOfLife.nextGen();
+
+        assertThat(gameOfLife.getBoard()[1][1]).isTrue();
+    }
 }
