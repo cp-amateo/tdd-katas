@@ -1,5 +1,7 @@
 package com.tddkata.christmasLightsKata;
 
+import java.util.Arrays;
+
 import static com.tddkata.christmasLightsKata.LIGHT_ACTION.ON;
 
 public class ChristmasLights {
@@ -28,6 +30,7 @@ public class ChristmasLights {
                 nLightsOn += grid[x][y];
             }
         }
+
         return nLightsOn;
     }
 

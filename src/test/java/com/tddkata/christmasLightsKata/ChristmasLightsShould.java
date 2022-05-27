@@ -58,4 +58,19 @@ class ChristmasLightsShould {
 
         assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(0);
     }
+
+    @Test
+    void exercise() {
+        christmasLights.turnOn(Coordinate.of(887, 9), Coordinate.of(959,629));
+        christmasLights.turnOn(Coordinate.of(454,398), Coordinate.of(844,448));
+        christmasLights.turnOff(Coordinate.of(539,243), Coordinate.of(559,965));
+        christmasLights.turnOff(Coordinate.of(370,819), Coordinate.of(676,868));
+        christmasLights.turnOff(Coordinate.of(145,40), Coordinate.of(370,997));
+        christmasLights.turnOff(Coordinate.of(301,3), Coordinate.of(808,453));
+        christmasLights.turnOn(Coordinate.of(351,678), Coordinate.of(951,908));
+        christmasLights.toggle(Coordinate.of(720,196), Coordinate.of(897,994));
+        christmasLights.toggle(Coordinate.of(831,394), Coordinate.of(904,860));
+
+        assertThat(christmasLights.getNumberOfLightsOn()).isEqualTo(230022);
+    }
 }
