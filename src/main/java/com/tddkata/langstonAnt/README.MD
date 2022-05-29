@@ -1,8 +1,18 @@
 # Ants Kata
 
-## Rules 
+## Introduction 
+Considering the rules:
 * At a white square turn 90° clockwise (R), flip the colour of the square, move forward one unit.
 * At a black square, turn 90° counter-clockwise (L), flip the colour of the square, move forward one unit.
+
+This is how the first 200 steps of the ant would look like with the rules above (using the notation 'RL'):
+
+[ant-example]: https://upload.wikimedia.org/wikipedia/commons/0/09/LangtonsAntAnimated.gif
+"Ant example"
+  ![ant-example][ant-example]
+
+## Rules
+* The sequence passed must have at least 2 characters, like 'RL', which will be looped for the defined number of steps.
 * All squares start as white.
 * The grid should be odd sized so that the ant can be placed in the center.
 * The grid must be shown after every step so we can observe it.
