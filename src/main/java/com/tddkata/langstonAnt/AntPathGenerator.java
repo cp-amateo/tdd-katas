@@ -1,5 +1,7 @@
 package com.tddkata.langstonAnt;
 
+import static java.util.Objects.isNull;
+
 public class AntPathGenerator {
     public AntPathGenerator(int gripSize) {
         if (gripSize % 2 == 0) {
@@ -9,5 +11,6 @@ public class AntPathGenerator {
     }
 
     public void simulatePath(final String rules, int steps) {
+
     }
 }
