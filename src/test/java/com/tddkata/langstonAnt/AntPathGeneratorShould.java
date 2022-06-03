@@ -1,7 +1,9 @@
 package com.tddkata.langstonAnt;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -13,10 +15,12 @@ class AntPathGeneratorShould {
                 () -> new AntPathGenerator(8).simulatePath("RL", 2));
     }
 
-    @Test
-    void throw_exception_when_rules_is_empty() {
+    @ParameterizedTest
+    @NullSource
+    @EmptySource
+    void throw_exception_when_rules_is_empty(String rules) {
         assertThrows(IllegalArgumentException.class,
-                () -> new AntPathGenerator(11).simulatePath("", 2));
+                () -> new AntPathGenerator(11).simulatePath(rules, 2));
     }
 
 }
