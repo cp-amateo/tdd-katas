@@ -26,11 +26,13 @@ public class AntPathGenerator {
     public void simulatePath(final String rules, int steps) {
         checkValidRules(rules);
 
-        if (rules.contains("R")) {
-            grid[antPosition.getX()][antPosition.getX()] = Color.BLACK;
-            antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
+        for (int step = 0; step < steps; step++) {
+            if (rules.contains("R")) {
+                grid[antPosition.getX()][antPosition.getY()] = Color.BLACK;
+                if (step == 0) antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
+                if (step == 1) antPosition = Point.of(antPosition.getX(), antPosition.getY() + 1);
+            }
         }
-
     }
 
     public Point getAntPosition() {
