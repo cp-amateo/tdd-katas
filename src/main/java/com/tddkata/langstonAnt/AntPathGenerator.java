@@ -2,12 +2,19 @@ package com.tddkata.langstonAnt;
 
 import java.util.Arrays;
 
+import static com.tddkata.langstonAnt.AntPathGenerator.Direction.DOWN;
+import static com.tddkata.langstonAnt.AntPathGenerator.Direction.LEFT;
+import static com.tddkata.langstonAnt.AntPathGenerator.Direction.RIGHT;
+import static com.tddkata.langstonAnt.AntPathGenerator.Direction.UP;
 import static java.util.Objects.isNull;
 
 public class AntPathGenerator {
 
     private final Color[][] grid;
     private Point antPosition;
+    private int antDirection = 0;
+
+    private final Direction[] directions = new Direction[]{LEFT, UP, RIGHT, DOWN};
 
     public AntPathGenerator(int gripSize) {
         if (gripSize % 2 == 0) {
@@ -27,21 +34,31 @@ public class AntPathGenerator {
         checkValidRules(rules);
 
         for (int step = 0; step < steps; step++) {
-            if (rules.contains("R")) {
-                if (Color.WHITE == grid[antPosition.getX()][antPosition.getY()]) {
-                    grid[antPosition.getX()][antPosition.getY()] = Color.BLACK;
-                    if (step == 0) antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
-                    if (step == 1) antPosition = Point.of(antPosition.getX(), antPosition.getY() + 1);
-                    if (step == 2) antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
-                    if (step == 3) antPosition = Point.of(antPosition.getX(), antPosition.getY() - 1);
+            if (Color.WHITE == getCell()) {
+                if (rules.contains("R")) {
+                    switchColor();
+                    changeDirection(Movement.RIGHT);
+                    moveForward();
+                }
+            } else if (Color.BLACK == getCell()) {
+                if (rules.contains("L")) {
+                    switchColor();
+                    changeDirection(Movement.LEFT);
+                    moveForward();
                 }
             }
-            if (rules.contains("L")) {
-                if (Color.BLACK == grid[antPosition.getX()][antPosition.getY()]) {
-                    grid[antPosition.getX()][antPosition.getY()] = Color.WHITE;
-                    if (step == 4) antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
-                }
-            }
+        }
+    }
+
+    private Color getCell() {
+        return grid[antPosition.getX()][antPosition.getY()];
+    }
+
+    private void switchColor() {
+        if (Color.WHITE == getCell()) {
+            grid[antPosition.getX()][antPosition.getY()] = Color.BLACK;
+        } else if (Color.BLACK == getCell()) {
+            grid[antPosition.getX()][antPosition.getY()] = Color.WHITE;
         }
     }
 
@@ -51,6 +68,26 @@ public class AntPathGenerator {
 
     public Color getCell(final int x, final int y) {
         return grid[x][y];
+    }
+
+    private void changeDirection(final Movement movement) {
+        if (Movement.RIGHT == movement) {
+            antDirection = (antDirection + 1) % directions.length;
+        }
+        if (Movement.LEFT == movement) {
+            antDirection = antDirection == 0
+                    ? directions.length - 1
+                    : antDirection - 1;
+        }
+    }
+
+    private void moveForward() {
+        switch (directions[antDirection]) {
+            case UP -> antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
+            case RIGHT -> antPosition = Point.of(antPosition.getX(), antPosition.getY() + 1);
+            case DOWN -> antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
+            case LEFT -> antPosition = Point.of(antPosition.getX(), antPosition.getY() - 1);
+        }
     }
 
     private void checkValidRules(String rules) {
@@ -63,6 +100,18 @@ public class AntPathGenerator {
     enum Color {
         WHITE,
         BLACK
+    }
+
+    enum Direction {
+        LEFT,
+        UP,
+        RIGHT,
+        DOWN
+    }
+
+    enum Movement {
+        LEFT,
+        RIGHT
     }
 
 }
