@@ -14,7 +14,7 @@ public class AntPathGenerator {
             throw new IllegalArgumentException();
         }
 
-        antPosition = Point.of(gripSize/2, gripSize/2);
+        antPosition = Point.of(gripSize / 2, gripSize / 2);
 
         grid = new Color[gripSize][gripSize];
         for (Color[] colors : grid) {
@@ -25,9 +25,20 @@ public class AntPathGenerator {
 
     public void simulatePath(final String rules, int steps) {
         checkValidRules(rules);
+
+        if (rules.contains("R")) {
+            grid[antPosition.getX()][antPosition.getX()] = Color.BLACK;
+            antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
+        }
+
     }
+
     public Point getAntPosition() {
         return antPosition;
+    }
+
+    public Color getCell(final int x, final int y) {
+        return grid[x][y];
     }
 
     private void checkValidRules(String rules) {

@@ -3,10 +3,12 @@ package com.tddkata.langstonAnt;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Builder
 @Getter
 @EqualsAndHashCode
+@ToString
 public class Point {
 
     private final int x;
