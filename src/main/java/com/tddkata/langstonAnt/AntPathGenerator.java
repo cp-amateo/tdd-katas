@@ -11,7 +11,9 @@ public class AntPathGenerator {
     }
 
     public void simulatePath(final String rules, int steps) {
-        if (rules == null || rules.isEmpty()) {
+        if (rules == null
+            || rules.isEmpty()
+            || rules.length() < 2) {
             throw new IllegalArgumentException();
         }
     }
