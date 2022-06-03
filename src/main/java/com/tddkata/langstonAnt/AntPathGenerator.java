@@ -32,6 +32,7 @@ public class AntPathGenerator {
                 if (step == 0) antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
                 if (step == 1) antPosition = Point.of(antPosition.getX(), antPosition.getY() + 1);
                 if (step == 2) antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
+                if (step == 3) antPosition = Point.of(antPosition.getX(), antPosition.getY() - 1);
             }
         }
     }
