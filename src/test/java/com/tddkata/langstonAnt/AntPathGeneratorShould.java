@@ -63,4 +63,14 @@ class AntPathGeneratorShould {
         assertThat(antPathGenerator.getAntPosition()).isEqualTo(Point.of(5, 6));
         assertThat(antPathGenerator.getCell(4, 6)).isEqualTo(AntPathGenerator.Color.BLACK);
     }
+
+    @Test
+    void moves_after_four_steps() {
+        final AntPathGenerator antPathGenerator = new AntPathGenerator(11);
+
+        antPathGenerator.simulatePath("RL", 3);
+
+        assertThat(antPathGenerator.getAntPosition()).isEqualTo(Point.of(5, 5));
+        assertThat(antPathGenerator.getCell(5, 6)).isEqualTo(AntPathGenerator.Color.BLACK);
+    }
 }
