@@ -28,11 +28,19 @@ public class AntPathGenerator {
 
         for (int step = 0; step < steps; step++) {
             if (rules.contains("R")) {
-                grid[antPosition.getX()][antPosition.getY()] = Color.BLACK;
-                if (step == 0) antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
-                if (step == 1) antPosition = Point.of(antPosition.getX(), antPosition.getY() + 1);
-                if (step == 2) antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
-                if (step == 3) antPosition = Point.of(antPosition.getX(), antPosition.getY() - 1);
+                if (Color.WHITE == grid[antPosition.getX()][antPosition.getY()]) {
+                    grid[antPosition.getX()][antPosition.getY()] = Color.BLACK;
+                    if (step == 0) antPosition = Point.of(antPosition.getX() - 1, antPosition.getY());
+                    if (step == 1) antPosition = Point.of(antPosition.getX(), antPosition.getY() + 1);
+                    if (step == 2) antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
+                    if (step == 3) antPosition = Point.of(antPosition.getX(), antPosition.getY() - 1);
+                }
+            }
+            if (rules.contains("L")) {
+                if (Color.BLACK == grid[antPosition.getX()][antPosition.getY()]) {
+                    grid[antPosition.getX()][antPosition.getY()] = Color.WHITE;
+                    if (step == 4) antPosition = Point.of(antPosition.getX() + 1, antPosition.getY());
+                }
             }
         }
     }
