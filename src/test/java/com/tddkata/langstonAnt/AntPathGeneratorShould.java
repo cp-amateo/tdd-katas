@@ -6,6 +6,9 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.awt.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AntPathGeneratorShould {
@@ -24,4 +27,10 @@ class AntPathGeneratorShould {
                 () -> new AntPathGenerator(11).simulatePath(rules, 2));
     }
 
+    @Test
+    void center_position_at_the_beginning() {
+        final AntPathGenerator antPathGenerator = new AntPathGenerator(11);
+
+        assertThat(antPathGenerator.getAntPosition()).isEqualTo(Point.of(5, 5));
+    }
 }
