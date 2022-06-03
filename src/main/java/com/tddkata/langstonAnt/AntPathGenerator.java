@@ -1,7 +1,14 @@
 package com.tddkata.langstonAnt;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
+import static com.tddkata.langstonAnt.AntPathGenerator.Color.BLACK;
+import static com.tddkata.langstonAnt.AntPathGenerator.Color.WHITE;
 import static com.tddkata.langstonAnt.AntPathGenerator.Direction.DOWN;
 import static com.tddkata.langstonAnt.AntPathGenerator.Direction.LEFT;
 import static com.tddkata.langstonAnt.AntPathGenerator.Direction.RIGHT;
@@ -14,39 +21,106 @@ public class AntPathGenerator {
     private Point antPosition;
     private int antDirection = 0;
 
+    private Map<String, Supplier<Boolean>> rules = new HashMap<>();
+
     private final Direction[] directions = new Direction[]{LEFT, UP, RIGHT, DOWN};
 
-    public AntPathGenerator(int gripSize) {
-        if (gripSize % 2 == 0) {
-            throw new IllegalArgumentException();
-        }
+    public AntPathGenerator(int gridSize) {
+        grid = new Color[gridSize][gridSize];
 
-        antPosition = Point.of(gripSize / 2, gripSize / 2);
-
-        grid = new Color[gripSize][gripSize];
-        for (Color[] colors : grid) {
-            Arrays.fill(colors, Color.WHITE);
-        }
-
+        checkValidGridSize(gridSize);
+        initializeGridAndPosition(gridSize);
+        initializeRules();
     }
 
-    public void simulatePath(final String rules, int steps) {
-        checkValidRules(rules);
+    private void initializeRules() {
+        rules = Map.of(
+                "R", this::runRuleR,
+                "L", this::runRuleL);
+    }
 
+    public void simulatePath(final String command, int steps) {
+        List<String> rulesList = parseRules(command);
+        checkValidOrders(rulesList);
         for (int step = 0; step < steps; step++) {
-            if (Color.WHITE == getCell()) {
-                if (rules.contains("R")) {
-                    switchColor();
-                    changeDirection(Movement.RIGHT);
-                    moveForward();
-                }
-            } else if (Color.BLACK == getCell()) {
-                if (rules.contains("L")) {
-                    switchColor();
-                    changeDirection(Movement.LEFT);
-                    moveForward();
+            findAndApplyRules(rulesList);
+            printGrid();
+        }
+    }
+
+    private void printGrid() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[x].length; y++) {
+                if (x == antPosition.getX() &&
+                    y == antPosition.getY()) {
+                    stringBuffer.append("x");
+                } else if (WHITE == getCell(x, y)) {
+                    stringBuffer.append(" ");
+                } else if (BLACK == getCell(x, y)) {
+                    stringBuffer.append("o");
                 }
             }
+            stringBuffer.append("\n");
+        }
+        System.out.print(stringBuffer);
+    }
+
+    private void findAndApplyRules(List<String> rulesList) {
+        for (String rule : rulesList) {
+            if (rules.get(rule).get()) {
+                break;
+            }
+        }
+    }
+
+    private Boolean runRuleR() {
+        if (WHITE != getCell()) {
+            return false;
+        }
+        switchColor();
+        changeDirection(Movement.RIGHT);
+        moveForward();
+        return true;
+    }
+
+    private Boolean runRuleL() {
+        if (Color.BLACK != getCell()) {
+            return false;
+        }
+        switchColor();
+        changeDirection(Movement.LEFT);
+        moveForward();
+        return true;
+    }
+
+    private List<String> parseRules(final String command) {
+        final List<String> rulesList = new ArrayList<>();
+        if (isNull(command)) {
+            return rulesList;
+        }
+
+        String rule = "";
+        for (String ch : command.split("")) {
+            rule = rule.concat(ch);
+            if (rules.containsKey(rule)) {
+                rulesList.add(rule);
+                rule = "";
+            }
+        }
+        return rulesList;
+    }
+
+    private void initializeGridAndPosition(int gridSize) {
+        antPosition = Point.of(gridSize / 2, gridSize / 2);
+        for (Color[] colors : grid) {
+            Arrays.fill(colors, WHITE);
+        }
+    }
+
+    private void checkValidGridSize(int gripSize) {
+        if (gripSize % 2 == 0) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -55,10 +129,10 @@ public class AntPathGenerator {
     }
 
     private void switchColor() {
-        if (Color.WHITE == getCell()) {
+        if (WHITE == getCell()) {
             grid[antPosition.getX()][antPosition.getY()] = Color.BLACK;
         } else if (Color.BLACK == getCell()) {
-            grid[antPosition.getX()][antPosition.getY()] = Color.WHITE;
+            grid[antPosition.getX()][antPosition.getY()] = WHITE;
         }
     }
 
@@ -90,8 +164,8 @@ public class AntPathGenerator {
         }
     }
 
-    private void checkValidRules(String rules) {
-        if (rules == null || rules.length() < 2) {
+    private void checkValidOrders(List<String> rules) {
+        if (rules == null || rules.size() < 2) {
             throw new IllegalArgumentException();
         }
     }

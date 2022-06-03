@@ -2,11 +2,8 @@ package com.tddkata.langstonAnt;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.awt.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,7 +21,7 @@ class AntPathGeneratorShould {
     @ValueSource(strings = {"", "R","L"})
     void throw_exception_when_rules_is_not_valid(String rules) {
         assertThrows(IllegalArgumentException.class,
-                () -> new AntPathGenerator(11).simulatePath(rules, 2));
+                () -> new AntPathGenerator(11).simulatePath(rules, 1));
     }
 
     @Test
@@ -83,4 +80,15 @@ class AntPathGeneratorShould {
         assertThat(antPathGenerator.getAntPosition()).isEqualTo(Point.of(6, 5));
         assertThat(antPathGenerator.getCell(5, 5)).isEqualTo(AntPathGenerator.Color.WHITE);
     }
+
+    @Test
+    void moves_after_six_steps() {
+        final AntPathGenerator antPathGenerator = new AntPathGenerator(11);
+
+        antPathGenerator.simulatePath("RL", 6);
+
+        assertThat(antPathGenerator.getAntPosition()).isEqualTo(Point.of(6, 4));
+        assertThat(antPathGenerator.getCell(6, 5)).isEqualTo(AntPathGenerator.Color.BLACK);
+    }
+
 }
